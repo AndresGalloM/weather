@@ -6,7 +6,11 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        '2': 'max-content max-content'
+      }
+    },
   },
   plugins: [],
 }
