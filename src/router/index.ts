@@ -1,22 +1,16 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import HomeView from "@/views/HomeView.vue"
-import SearchView from "@/views/SearchView.vue"
-import View404 from "@/views/404View.vue"
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import HomeView from '@/views/HomeView.vue'
+import View404 from '@/views/404View.vue'
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/",
-    name: "home",
+    path: '/:location?',
+    name: 'location',
     component: HomeView
   },
   {
-    path: "/:location",
-    name: "location",
-    component: SearchView
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "NotFound",
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
     component: View404
   }
 ]
