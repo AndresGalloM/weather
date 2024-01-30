@@ -7,7 +7,7 @@ import Tooltip from '@/components/Tooltip.vue'
   <Tooltip msg="Github">
     <button>
       <a href="https://github.com/AndresGalloM/weather" target="_blank">
-        <PhGithubLogo size="26" weight="bold"/>
+        <PhGithubLogo size="24" weight="bold"/>
       </a>
     </button>
   </Tooltip>

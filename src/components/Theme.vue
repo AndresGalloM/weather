@@ -10,7 +10,7 @@ const toggleDark = useToggle(isDark)
 <template>
   <Tooltip msg="Theme">
     <button @click="toggleDark()">
-      <component :is="isDark ? PhMoon : PhSun" size="26" weight="bold"/>
+      <component :is="isDark ? PhMoon : PhSun" size="24" weight="bold"/>
     </button>
   </Tooltip>
 </template>
