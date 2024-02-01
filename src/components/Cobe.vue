@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from "vue"
-import createGlobe from "cobe"
+import { ref, onMounted, watch } from 'vue'
+import createGlobe from 'cobe'
 
 type Location = {
   latitude: number,
   longitude: number
 } 
 
-const { latitude, longitude } = defineProps<Location>()
+const props = defineProps<Location>()
 
 const canvasRef = ref()
 const focusRef = ref([0, 0])
+const res = ref()
 
 const locationToAngles = (lat: number, long: number) => {
   return [Math.PI - ((long * Math.PI) / 180 - Math.PI / 2), (lat * Math.PI) / 180]
 }
 
-onMounted(() => {
+const onGlobe = () => {
   let width = 0;
   let currentPhi = 0;
   let currentTheta = 0;
@@ -34,13 +35,15 @@ onMounted(() => {
     theta: 0,
     dark: 1,
     diffuse: 1.2,
-    mapSamples: 20000,
+    mapSamples: 16000,
     mapBrightness: 10,
     baseColor: [0.3, 0.3, 0.3],
-    markerColor: [0.1, 0.8, 1],
+    markerColor: [0.2314, 0.5098, 0.9647],
     glowColor: [0, 0, 0],
+    opacity:0.9,
+    scale: 1.11,
     markers: [
-      { location: [latitude, longitude], size: 0.08 },
+      { location: [props.latitude, props.longitude], size: 0.06 },
     ],
     onRender: (state) => {
       state.phi = currentPhi
@@ -61,12 +64,22 @@ onMounted(() => {
     }
   })
 
-  focusRef.value = locationToAngles(latitude, longitude)
   setTimeout(() => canvasRef.value.style.opacity = "1")
   return () => { 
     globe.destroy();
     window.removeEventListener("resize", onResize);
   }
+}
+
+onMounted(() => {
+  focusRef.value = locationToAngles(props.latitude, props.longitude)
+  res.value = onGlobe()
+})
+
+watch(props, () => {
+  res.value()
+  focusRef.value = locationToAngles(props.latitude, props.longitude)
+  onGlobe()
 })
 </script>
 
